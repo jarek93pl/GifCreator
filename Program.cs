@@ -200,23 +200,27 @@ public class program
 {
     public static void Main(string[] Adreses)
     {
-
-        string[] ScreenShotImagesPaths = File.ReadAllLines("Images.txt");
-        int[] FramesTime = File.ReadAllLines("Times.txt").Select(X => Convert.ToInt32(X)).ToArray();
-        GifWriter gifWriter = new GifWriter(Guid.NewGuid().ToString()+".gif");
-        int index = 0;
-
-        foreach (var image in ScreenShotImagesPaths)
+        int numberOfGif = Adreses.Length / 2;
+        Console.WriteLine("send data througt parameters .example");
+        Console.WriteLine("E:\\OneDrive\\Pulpit\\fb activity\\2025.06.18  Will Smith colection\\slides\\f5.png\r\nE:\\OneDrive\\Pulpit\\fb activity\\2025.06.18  Will Smith colection\\slides\\f0.png 6000 1000");
+        string[] ScreenShotImagesPaths = Adreses.Take(numberOfGif).ToArray();
+        int[] FramesTime = Adreses.Skip(numberOfGif).Take(numberOfGif).Select(X => Convert.ToInt32(X)).ToArray();
+        if (Adreses.Length != 0)
         {
+            GifWriter gifWriter = new GifWriter(Guid.NewGuid().ToString() + ".gif");
+            int index = 0;
 
-            var imageObject = System.Drawing.Image.FromFile(image.Replace("\"",""));
-            gifWriter.WriteFrame(imageObject, FramesTime[index]);
+            foreach (var image in ScreenShotImagesPaths)
+            {
 
-            imageObject = null;
-            index++;
+                var imageObject = System.Drawing.Image.FromFile(image.Replace("\"", ""));
+                gifWriter.WriteFrame(imageObject, FramesTime[index]);
+
+                imageObject = null;
+                index++;
+            }
+
+            gifWriter.Dispose();
         }
-
-        gifWriter.Dispose();
-    
     }
 }
