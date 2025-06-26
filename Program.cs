@@ -200,7 +200,13 @@ public class program
 {
     public static void Main(string[] Adreses)
     {
+        const string nameFile = "input.txt";
+        if (Adreses.Length == 0)
+        {
+            Adreses = File.ReadLines(nameFile).ToArray();
+        }
         int numberOfGif = Adreses.Length / 2;
+        Console.WriteLine($"for big gif use file named {nameFile}");
         Console.WriteLine("send data througt parameters .example");
         Console.WriteLine("E:\\OneDrive\\Pulpit\\fb activity\\2025.06.18  Will Smith colection\\slides\\f5.png\r\nE:\\OneDrive\\Pulpit\\fb activity\\2025.06.18  Will Smith colection\\slides\\f0.png 6000 1000");
         string[] ScreenShotImagesPaths = Adreses.Take(numberOfGif).ToArray();
